@@ -6,7 +6,6 @@ import java.util.Date;
 @Entity
 public class UserLogin {
     private int id;
-    private int userId;
     private Date loginDate;
     private User user;
 
@@ -23,14 +22,6 @@ public class UserLogin {
         this.id = id;
     }
 
-    @Column(name = "uid")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     @Column
     public Date getLoginDate() {
@@ -41,13 +32,12 @@ public class UserLogin {
         this.loginDate = loginDate;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "userid")
-
-
-    public User getUser() {
-        return user;
-    }
+//    @ManyToOne(optional = false)
+//    @JoinColumn(name = "uid"  )
+//
+//    public User getUser() {
+//        return user;
+//    }
 
     public void setUser(User user) {
         this.user = user;

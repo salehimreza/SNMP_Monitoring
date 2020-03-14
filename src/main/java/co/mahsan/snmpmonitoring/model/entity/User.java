@@ -1,5 +1,8 @@
 package co.mahsan.snmpmonitoring.model.entity;
 
+
+import org.hibernate.annotations.CollectionId;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,10 +14,10 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private int role;
+    private int roleId;
     private String email;
-    private boolean isEnable;
     private boolean isLogin;
+    private boolean isEnable;
     private String name;
     private String family;
     private Date lastLogin;
@@ -54,12 +57,13 @@ public class User {
         this.password = password;
     }
 
-    public int getRole() {
-        return role;
+    @Column(name = "roleid")
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setRoleId(int role) {
+        this.roleId = role;
     }
 
     @Column
@@ -71,23 +75,6 @@ public class User {
         this.email = email;
     }
 
-    @Column
-    public boolean isEnable() {
-        return isEnable;
-    }
-
-    public void setEnable(boolean enable) {
-        isEnable = enable;
-    }
-
-    @Column
-    public boolean isLogin() {
-        return isLogin;
-    }
-
-    public void setLogin(boolean login) {
-        isLogin = login;
-    }
 
     @Column
     public String getName() {
@@ -107,7 +94,7 @@ public class User {
         this.family = family;
     }
 
-    @Column
+    @Column(name="lastlogin")
     public Date getLastLogin() {
         return lastLogin;
     }
@@ -116,9 +103,27 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @Column(name="islogin")
+    public boolean getIsLogin() {
+        return isLogin;
+    }
+
+    public void setIsLogin(boolean login) {
+        isLogin = login;
+    }
+
+    @Column(name = "isenable")
+    public boolean getIsEnable() {
+        return isEnable;
+    }
+
+    public void setIsEnable(boolean enable) {
+        isEnable = enable;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "user_server", joinColumns = {@JoinColumn(name = "userid")},
-            inverseJoinColumns = {@JoinColumn(name="serverid")})
+            inverseJoinColumns = {@JoinColumn(name = "serverid")})
 
     public List<Server> getServerList() {
         return serverList;
@@ -147,14 +152,23 @@ public class User {
         }
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    public List<UserLogin> getLoginList() {
+//        return loginList;
+//    }
+//
+//    public void setLoginList(List<UserLogin> loginList) {
+//        this.loginList = loginList;
+//    }
 
-    public List<UserLogin> getLoginList() {
-        return loginList;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", family='" + family + '\'' +
+                '}';
     }
-
-    public void setLoginList(List<UserLogin> loginList) {
-        this.loginList = loginList;
-    }
-
 }

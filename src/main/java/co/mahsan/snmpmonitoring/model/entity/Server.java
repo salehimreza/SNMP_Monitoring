@@ -88,4 +88,13 @@ public class Server {
             user.removeServer(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Server{" +
+                "ip=" + ip +
+                ", name='" + name + '\'' +
+                ", os='" + os + '\'' +
+                '}';
+    }
 }

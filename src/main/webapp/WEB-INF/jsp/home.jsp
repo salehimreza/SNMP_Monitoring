@@ -8,5 +8,11 @@
 <p>
     Welcome to Spring MVC
 </p>
+<table>
+    <td>
+        <a href="/users">uesrs</a>
+    </td>
+</table>
+
 </body>
 </html>
